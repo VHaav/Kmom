@@ -1,0 +1,16 @@
+<?php
+    include(__DIR__ . '/config.php');
+    
+    $vhaa['title'] = "Me-sida";
+        
+    $vhaa['main'] = <<<EOD
+    <div class='main_content'>
+        <h3>Om mig</h3>
+        <p>Detta är en exempelsida för vhaa webbtemplate. Jag som gjort denna hemsidan heter Ville Haavisto och har gjort denna sida som del av en webbutvecklingskurs på Blekinge tekniska högskola.
+            Kursen är en fördjupning i PHP och objektorienterad programmering.</p>
+    </div>
+EOD;
+    
+    // include for rendering content
+    include(THEME_PATH);
+?>

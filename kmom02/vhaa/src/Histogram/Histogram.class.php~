@@ -1,0 +1,18 @@
+<?php
+    class Histogram {
+        
+        public function getHistogram(array $values){
+            asort($values);
+            $temp = array_count_values($values);
+            $result = "";            
+            foreach($temp as $key => $value){
+                $stars = "";
+                for($i = 0; $i < $value; $i++){
+                    $stars .= "X";
+                }
+                $result .= $stars." ({$key})<br>";
+            }
+            return $result;            
+        }
+    }
+?>

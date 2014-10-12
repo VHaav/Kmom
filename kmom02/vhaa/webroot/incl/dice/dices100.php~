@@ -1,0 +1,89 @@
+<?php
+
+    $vhaa['title'] = "Tärningsspel";
+    $vhaa['stylesheet'] = 'css/dices.css';
+    
+    $output = "";
+    $extraOutput = "";
+    $totalPoints = 0;
+    $nrOfRolls = 0;
+    $diceImagesHTML = null;
+    if(isset($_GET['newroll'])){
+        if(isset($_SESSION['dice100'])){
+            $dice = $_SESSION['dice100'];
+        }
+        else{
+            $dice = new DiceHand(1);
+        }
+        $dice->rollAllDices();
+        //update saved dice object after new roll
+        $_SESSION['dice100'] = $dice;
+        $diceImagesHTML = $dice->getRollsAsImageList();
+        $lastRollPoints = $dice->getTotal();
+        $nrOfRolls = $dice->getNrOfRolls();
+        $savedPoints = (isset($_SESSION['savedpoints'])) ? $_SESSION['savedpoints'] : null;
+        if($lastRollPoints != 1){
+            $roundPoints = $dice->getRoundTotal();
+            $totalPoints = $roundPoints + $savedPoints;
+            $extraOutput = <<<EOD
+            <p>Denna runda har du fått {$roundPoints} poäng.</p> 
+EOD;
+        }
+        else{
+            //clear round points
+            $dice->resetRoundTotal();
+            $totalPoints = $savedPoints;
+            $extraOutput = <<<EOD
+            <p>Ajdå, du fick en 1a, du förlorar denna rundans poäng! Ägd!</p>
+EOD;
+        }
+    }
+    else if(isset($_GET['save'])){
+        if(isset($_SESSION['dice100'])){
+            $dice = $_SESSION['dice100'];
+            $_SESSION['savedpoints'] += $dice->getRoundTotal();
+            $savedPoints = (isset($_SESSION['savedpoints'])) ? $_SESSION['savedpoints'] : null;
+            $dice->resetRoundTotal();
+            $totalPoints = $savedPoints;
+            $nrOfRolls = $dice->getNrOfRolls();
+            $diceImagesHTML = $dice->getRollsAsImageList();
+            $extraOutput = <<<EOD
+            <p>Du har sparat {$_SESSION['savedpoints']} poäng!</p>
+EOD;
+        }
+        else{
+            $extraOutput = <<<EOD
+            <p>Du måste starta spelet först!</p>
+EOD;
+        }
+    }
+    else if(isset($_GET['init'])){
+        $dice = new DiceHand(1);
+        $_SESSION['dice100'] = $dice;
+        $_SESSION['savedpoints'] = 0;
+        $extraOutput = <<<EOD
+        <p>Spelet startas om! Du har 0 poäng. Gör ett nytt kast!</p>
+EOD;
+    }
+    
+    $output = <<<EOD
+            <div><p>Senaste kast: {$diceImagesHTML}</p></div><br>
+            <p>{$extraOutput}</p>
+            <p>Totalt har du nu {$totalPoints} poäng, försök komma så nära 100 som möjligt!</p>
+            <p>Du har kastat totalt {$nrOfRolls} kast.</p>            
+EOD;
+    
+    // this will be displayed for the user (see theme/..)
+    $vhaa['main'] = <<<EOD
+    <article>
+        <h3>Tärningsspelet100</h3>
+        <p>Här kan du spela ett enkelt tärningsspel som är utvecklat efter objektorienterade principer.</p>
+        <p>Det gäller att komma närmast 100 poäng, med oändligt antal kast, MEN slår du en 1:a förlorar du alla dina poäng!</p>
+        <p><a href="?newroll">Kasta tärningen</a></p>
+        <p><a href="?save">Spara poäng</a></p>
+        <p><a href="?init">Starta ny runda</a></p>
+        <div>{$output}<div>
+    </article>
+EOD;
+
+?>

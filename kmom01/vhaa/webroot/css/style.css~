@@ -1,0 +1,49 @@
+
+html {
+        
+}
+
+body {
+    margin-left: 15em;
+    padding: 2em;
+    width: 900px;
+}
+
+#header {
+    margin-bottom: 1em;
+}
+
+#topmenu {
+    padding: 1em;
+    background: #E6E6E6;
+}
+
+#topmenu a {
+    margin: 1em;
+    color: black;
+    text-decoration: none;
+    padding-right: 2em;
+    border-right: 1px solid gray;
+}
+
+#topmenu a.selected {
+    color: #5858FA;
+    text-decoration: underline;
+}
+
+#topmenu a:hover {
+    color: #7401DF;
+}
+
+#main {
+    min-height: 15em;
+    padding: 2em;
+    border-top: 2px solid blue;
+    border-left: 1px solid blue;
+}
+
+#footer {
+    margin-top: 10em;
+    border-top: 1px dashed gray;
+    padding: 1em;
+}

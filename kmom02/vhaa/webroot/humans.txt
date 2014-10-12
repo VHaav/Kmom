@@ -1,0 +1,1 @@
+vhaav is a PHP-boilerplate/framework for small websites. "vhaa" was built by Ville Haavisto as part of a webdevelopment course at BTH in october 2014.

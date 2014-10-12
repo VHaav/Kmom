@@ -1,0 +1,25 @@
+<?php
+    include(__DIR__ . '/config.php');
+    
+    $vhaa['title'] = "Redovisningar";
+        
+    $vhaa['main'] = <<<EOD
+    <div class='main_content'>
+        <h2>Redovisningar</h2>
+        <p>Här finner du redovisningar från samtliga kursmoment som utfördes under denna kurs.</p>
+        
+        <article class="art_report"
+            <h3>Kmom01: Kom igång med programmering i PHP</h3>
+            <p>Detta första kursmoment tycker jag var mycket intressant och givande. Det tog oväntat lång tid att utföra då det var flera delar som man fick tänka till ordentligt på innan de blev rätt.
+                den nya strukturen på alla filer som skulle implementeras var lite utmanande att få rätt på, men den känns definitivt väldigt effektiv och bra när det väl började fungera.
+                Jag hade en del problem med att få rätt på navigations menyn och att markera den valda fliken. Den guiden som fanns tillgänglig gav visserligen ett svar, men jag använde mig inte av GET requests för att byta sida,
+                vilket gav lite problem. Turligt nog märkte jag att källkoden till lärarens exempel gjorde på samma sätt, men det var inte helt enkelt för mig att förstå den koden från början. Men efter att ha studerat den ett tag 
+                och testat mig fram så blev det tillslut rätt och jag känner att min lösning fungerar fint.</p>
+        </article>
+        
+    </div>
+EOD;
+    
+    // include for rendering content
+    include(THEME_PATH);
+?>
